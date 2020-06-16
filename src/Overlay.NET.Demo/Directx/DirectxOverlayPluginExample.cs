@@ -9,7 +9,7 @@ using Overlay.NET.Directx;
 using Process.NET.Windows;
 
 namespace Overlay.NET.Demo.Directx {
-    [RegisterPlugin("Специально для Grand RP (GTA V) 2 сервер", "MjKey", "Время заказов для дальнобойщиков", "1.0 BETA",
+    [RegisterPlugin("Специально для Grand RP (GTA V)", "MjKey", "Время заказов для дальнобойщиков", "1.1 BETA",
         "Тестовая версия.")]
     public class DirectxOverlayPluginExample : DirectXOverlayPlugin {
         private readonly TickEngine _tickEngine = new TickEngine();
@@ -49,16 +49,17 @@ namespace Overlay.NET.Demo.Directx {
             Console.WriteLine("Введите время следущего заказа (минуты)");
             Console.WriteLine("Например: 26");
             Console.Write("Минуты: ");
-            r = int.Parse(Console.ReadLine());
+            r = int.Parse(Console.ReadLine()); //ввод
+            //r = 2;
 
             OverlayWindow = new DirectXOverlayWindow(targetWindow.Handle, false);
             _watch = Stopwatch.StartNew();
 
             _redBrush = OverlayWindow.Graphics.CreateBrush(0x7FFF0000);
-            _redOpacityBrush = OverlayWindow.Graphics.CreateBrush(Color.FromArgb(80, 255, 0, 0));
+            _redOpacityBrush = OverlayWindow.Graphics.CreateBrush(Color.FromArgb(220, 225, 0, 0));
             _interiorBrush = OverlayWindow.Graphics.CreateBrush(0x7FFFFF00);
 
-            _font = OverlayWindow.Graphics.CreateFont("Arial", 20);
+            _font = OverlayWindow.Graphics.CreateFont("Arial", 22, true);
             _hugeFont = OverlayWindow.Graphics.CreateFont("Arial", 50, true);
 
             _rotation = 0.0f;
@@ -185,7 +186,7 @@ namespace Overlay.NET.Demo.Directx {
 
 
             //OverlayWindow.Graphics.DrawText(time, _font, _redBrush, 400, 40);
-            OverlayWindow.Graphics.DrawText("Следующий заказ: " + ts, _font, _redBrush, 800, 30);
+            OverlayWindow.Graphics.DrawText("Следующий заказ: " + ts, _font, _redOpacityBrush, 800, 30);
 
             _rotation += 0.03f; //related to speed
 

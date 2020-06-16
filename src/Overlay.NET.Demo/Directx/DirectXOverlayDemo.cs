@@ -35,7 +35,7 @@ namespace Overlay.NET.Demo.Directx {
             _directXoverlayPluginExample.Enable();
 
             // Log some info about the overlay.
-            Log.Debug("Запус модуля..");
+            Log.Debug("Оверлей запущен");
 
             var info = d3DOverlay.Settings.Current;
 
@@ -43,7 +43,7 @@ namespace Overlay.NET.Demo.Directx {
             Log.Info($"Оверлей: {info.Identifier}");
             Log.Info($"Версия: {info.Version}");
 
-            Log.Info("Закройте консоль чтобы выключить оверлей.");
+            Log.Info("Чтобы выключить оверлей - закройте консоль.");
 
             while (true) {
                 _directXoverlayPluginExample.Update();
