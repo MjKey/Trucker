@@ -1,5 +1,5 @@
 # Trucker
-Специально для Grand RP (GTA V) 2 SERVER
+Специально для Grand RP (GTA V)
 
 Инструкция:
 
