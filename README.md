@@ -1,4 +1,4 @@
-# Trucker
+# Trucker Overlay
 Специально для Grand RP (GTA V)
 
 Инструкция:
