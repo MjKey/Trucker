@@ -14,8 +14,8 @@ namespace Overlay.NET.Demo.Directx
         public void StartDemo()
         {
             Console.Title = @"Время заказов для Дальнобойщика";
-            var processName = "notepad"; //имя процесса
-            //var processName = "GTA5"; //имя процесса
+            //var processName = "notepad"; //имя процесса
+            var processName = "GTA5"; //имя процесса
 
             var process = System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault();
             if (process == null)

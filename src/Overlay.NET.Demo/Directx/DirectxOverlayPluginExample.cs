@@ -4,36 +4,40 @@ using Overlay.NET.Directx;
 using Process.NET.Windows;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Media;
 using Color = System.Drawing.Color;
 
 namespace Overlay.NET.Demo.Directx
 {
-    [RegisterPlugin("Специально для Grand RP (GTA V)", "MjKey", "Время заказов для дальнобойщиков", "1.3 BETA",
-        "Тестовая версия.")]
+    [RegisterPlugin("Специально для Grand RP (GTA V)", "MjKey", "Время заказов для дальнобойщиков", "1.4",
+        "BETA - версия.")]
     public class DirectxOverlayPluginExample : DirectXOverlayPlugin
     {
         private readonly TickEngine _tickEngine = new TickEngine();
         public readonly ISettings<DemoOverlaySettings> Settings = new SerializableSettings<DemoOverlaySettings>();
-        private int _displayFps;
         private int _font;
-        private int fB;
-        private int _hugeFont;
-        private int _i;
-        private int _interiorBrush;
-        private int _redBrush;
+        private int _font2;
         private int _BlackBrush;
         private int _redOpacityBrush;
-        private float _rotation;
         private Stopwatch _watch;
-        private int r;
-        private int s;
+        private string r;
+        private int r1;
+        private int r2;
+        private int r3;
+        private int r4;
+        private int r5;
+        private int r6;
+        private string r1t;
+        private string r2t;
+        private string r3t;
+        private string r4t;
+        private string r5t;
+        private string r6t;
+        private string r7t;
+        private int r7;
+        private string s;
         private string ValS;
-        static double WI = System.Windows.SystemParameters.PrimaryScreenWidth;
-        private int WiGo = (int)(WI * 42 / 100);
-
+        static readonly double WI = System.Windows.SystemParameters.PrimaryScreenWidth;
+        private readonly int WiGo = (int)(WI * 42 / 100);
 
 
 
@@ -57,28 +61,35 @@ namespace Overlay.NET.Demo.Directx
             current.Name = GetName(type);
             current.Version = GetVersion(type);
 
-            // File is made from above info
-            Settings.Save();
-            Settings.Load();
         Minuta:
             Console.Clear();
             Console.ResetColor();
             Console.WriteLine("Введите время следущего заказа (минуты)");
-            Console.WriteLine("Например: 26");
+            Console.WriteLine("Например: 3");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Минуты: ");
-            r = int.Parse(Console.ReadLine()); //ввод
+
+            r = Console.ReadLine(); //ввод
             //r = 2;
-            if (r >= 0 && r <= 60)
+            if (r.Length == 0)
             {
-                Zvuk:
+                r = Convert.ToString(DateTime.Now.Minute);
+            }
+            if (Convert.ToInt32(r) >= 0 && Convert.ToInt32(r) <= 60)
+            {
+            Zvuk:
                 Console.Clear();
                 Console.WriteLine("Включить звуковое оповещение?");
                 Console.WriteLine("1 - Да | 0 - Нет (по умолчанию)");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("Значение: ");
-                s = int.Parse(Console.ReadLine()); //ввод
-                if (s == 1 || s == 0)
+
+                s = Console.ReadLine(); //ввод
+                if (s.Length == 0)
+                {
+                    s = Convert.ToString(0);
+                }
+                if (Convert.ToInt32(s) == 1 || Convert.ToInt32(s) == 0)
                 {
                     Console.Clear();
                     void WriteLineCentered(string text)
@@ -90,7 +101,7 @@ namespace Overlay.NET.Demo.Directx
                         }
                         Console.WriteLine(text);
                     }
-                    if (s == 1)
+                    if (Convert.ToInt32(s) == 1)
                     {
                         ValS = "включен";
                     }
@@ -100,7 +111,7 @@ namespace Overlay.NET.Demo.Directx
                     }
 
                     WriteLineCentered("ОВЕРЛЕЙ ЗАПУЩЕН | Начальная временная отметка: " + r + " | Звук " + ValS);
-                    if (s == 1)
+                    if (Convert.ToInt32(s) == 1)
                     {
                         System.Media.SoundPlayer SoundPlayer = new System.Media.SoundPlayer(Properties.Resources.coin04);
                         SoundPlayer.Play();
@@ -109,19 +120,11 @@ namespace Overlay.NET.Demo.Directx
                     OverlayWindow = new DirectXOverlayWindow(targetWindow.Handle, false);
                     _watch = Stopwatch.StartNew();
 
-                    _redBrush = OverlayWindow.Graphics.CreateBrush(0x7FFF0000);
                     _redOpacityBrush = OverlayWindow.Graphics.CreateBrush(Color.FromArgb(255, 225, 0, 0));
                     _BlackBrush = OverlayWindow.Graphics.CreateBrush(Color.FromArgb(245, 0, 0, 0));
-                    _interiorBrush = OverlayWindow.Graphics.CreateBrush(0x7FFFFF00);
 
                     _font = OverlayWindow.Graphics.CreateFont("Arial", 22, true);
-                    fB = OverlayWindow.Graphics.CreateFont("Arial", 24, true);
-                    _hugeFont = OverlayWindow.Graphics.CreateFont("Arial", 50, true);
-
-                    _rotation = 0.0f;
-                    _displayFps = 0;
-                    _i = 0;
-                    // Set up update interval and register events for the tick engine.
+                    _font2 = OverlayWindow.Graphics.CreateFont("Arial", 18, true);
 
                     _tickEngine.PreTick += OnPreTick;
                     _tickEngine.Tick += OnTick;
@@ -135,7 +138,7 @@ namespace Overlay.NET.Demo.Directx
             {
                 goto Minuta;
             }
-           
+
         }
 
         private void OnTick(object sender, EventArgs e)
@@ -155,14 +158,14 @@ namespace Overlay.NET.Demo.Directx
             var targetWindowIsActivated = TargetWindow.IsActivated;
             if (!targetWindowIsActivated && OverlayWindow.IsVisible)
             {
-               // _watch.Stop();
-               // ClearScreen();
+                // _watch.Stop();
+                // ClearScreen();
                 OverlayWindow.Hide();
             }
             else if (targetWindowIsActivated && !OverlayWindow.IsVisible)
             {
                 OverlayWindow.Show();
-                
+
             }
         }
 
@@ -198,19 +201,84 @@ namespace Overlay.NET.Demo.Directx
             int m = DateTime.Now.Minute;
             int h = DateTime.Now.Hour;
             int hr = h;
-            if (r == m)
+            if (Convert.ToInt32(r) == m)
             {
-                r = m + 7;
-                if (s == 1)
+                r = Convert.ToString(m + 7);
+                if (Convert.ToInt32(r) == 1)
                 {
                     System.Media.SoundPlayer SoundPlayerX = new System.Media.SoundPlayer(Properties.Resources.x);
                     SoundPlayerX.Play();
                 }
             }
 
-            if (r >= 60)
+            r1 = Convert.ToInt32(r) + 7;
+            if (r1 < 60)
             {
-                r = r - 60;
+                r1t = " | " + r1;
+            }
+            else
+            {
+                r1t = "";
+            }
+            r2 = r1 + 7;
+            if (r2 < 60)
+            {
+                r2t = " | " + r2;
+            }
+            else
+            {
+                r2t = "";
+            }
+            r3 = r2 + 7;
+            if (r3 < 60)
+            {
+                r3t = " | " + r3;
+            }
+            else
+            {
+                r3t = "";
+            }
+            r4 = r3 + 7;
+            if (r4 < 60)
+            {
+                r4t = " | " + r4;
+            }
+            else
+            {
+                r4t = "";
+            }
+            r5 = r4 + 7;
+            if (r5 < 60)
+            {
+                r5t = " | " + r5;
+            }
+            else
+            {
+                r5t = "";
+            }
+            r6 = r5 + 7;
+            if (r6 < 60)
+            {
+                r6t = " | " + r6;
+            }
+            else
+            {
+                r6t = "";
+            }
+            r7 = r6 + 7;
+            if (r7 < 60)
+            {
+                r7t = " | " + r7;
+            }
+            else
+            {
+                r7t = "";
+            }
+
+
+            if (Convert.ToInt32(r) >= 60)
+            {
+                r = Convert.ToString(Convert.ToInt32(r) - 60);
                 hr++;
             }
 
@@ -227,7 +295,7 @@ namespace Overlay.NET.Demo.Directx
 
             ts += ":";
 
-            if (r < 10)
+            if (Convert.ToInt32(r) < 10)
             {
                 ts += "0" + r;
             }
@@ -245,53 +313,15 @@ namespace Overlay.NET.Demo.Directx
             }
 
 
-            string time = "";
-
-            if (h < 10)
-            {
-                time += "0" + h;
-            }
-            else
-            {
-                time += h;
-            }
-
-            time += ":";
-
-            if (m < 10)
-            {
-                time += "0" + m;
-            }
-            else
-            {
-                time += m;
-            }
-
-
             //OverlayWindow.Graphics.DrawText(time, _font, _redBrush, 400, 40);
 
-            OverlayWindow.Graphics.DrawText("Следующий заказ: " + ts, fB, _BlackBrush, WiGo+2, 30);
+            OverlayWindow.Graphics.DrawText("Следующий заказ: " + ts, _font, _BlackBrush, WiGo + 1, 30);
 
             OverlayWindow.Graphics.DrawText("Следующий заказ: " + ts, _font, _redOpacityBrush, WiGo, 30);
 
-            _rotation += 0.03f; //related to speed
+            OverlayWindow.Graphics.DrawText(r + r1t + r2t + r3t + r4t + r5t + r6t + r7t, _font2, _BlackBrush, WiGo + 1, 60);
 
-            if (_rotation > 50.0f) //size of the swastika
-            {
-                _rotation = -50.0f;
-            }
-
-            if (_watch.ElapsedMilliseconds > 1000)
-            {
-                _i = _displayFps;
-                _displayFps = 0;
-                _watch.Restart();
-            }
-
-            else
-            {
-                _displayFps++;
-            }
+            OverlayWindow.Graphics.DrawText(r + r1t + r2t + r3t + r4t + r5t + r6t + r7t, _font2, _redOpacityBrush, WiGo, 60);
 
             //OverlayWindow.Graphics.DrawText("FPS: " + _i, _hugeFont, _redBrush, 840, 600, false);
 
@@ -300,17 +330,10 @@ namespace Overlay.NET.Demo.Directx
         }
 
 
-public override void Dispose()
+        public override void Dispose()
         {
             OverlayWindow.Dispose();
             base.Dispose();
-        }
-
-        private void ClearScreen()
-        {
-            OverlayWindow.Graphics.BeginScene();
-            OverlayWindow.Graphics.ClearScene();
-            OverlayWindow.Graphics.EndScene();
         }
     }
 }
