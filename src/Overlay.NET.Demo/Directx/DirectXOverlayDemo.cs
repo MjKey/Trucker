@@ -13,17 +13,17 @@ namespace Overlay.NET.Demo.Directx
 
         public void StartDemo()
         {
-            Console.Title = @"Время заказов для Дальнобойщика";
-            var processName = "notepad"; //имя процесса
-            //var processName = "GTA5"; //имя процесса
+            Console.Title = @"Г‚Д‘ДєД›Л™ Г§Е•Д™Е•Г§Г®Гў Г¤Г«Л™ Г„Е•Г«ГјГ­Г®ГЎГ®Г©ЕЇДЌД™Е•";
+            //var processName = "notepad"; //ДЌД›Л™ ДЏД‘Г®Г¶ДєЕ„Е„Е•
+            var processName = "GTA5"; //ДЌД›Л™ ДЏД‘Г®Г¶ДєЕ„Е„Е•
 
             var process = System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault();
             if (process == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Игра не найдена.");
+                Console.WriteLine($"ДЊДѓД‘Е• Г­Дє Г­Е•Г©Г¤ДєГ­Е•.");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Ожидание запуска игры...");
+                Console.WriteLine("ГЋД‡ДЌГ¤Е•Г­ДЌДє Г§Е•ДЏГіЕ„Д™Е• ДЌДѓД‘Е±...");
                 System.Threading.Thread.Sleep(5000);
                 Console.Clear();
                 StartDemo();
@@ -46,20 +46,20 @@ namespace Overlay.NET.Demo.Directx
             var info = d3DOverlay.Settings.Current;
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"Автор: ");
+            Console.Write($"Е”ГўЕ€Г®Д‘: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{ info.Author}");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"Оверлей: ");
+            Console.Write($"ГЋГўДєД‘Г«ДєГ©: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{ info.Identifier}");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"Версия: ");
+            Console.Write($"Г‚ДєД‘Е„ДЌЛ™: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{ info.Version}");
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Чтобы выключить оверлей - закройте консоль.");
+            Console.WriteLine("Г—Е€Г®ГЎЕ± ГўЕ±Д™Г«ЕЈГ·ДЌЕ€Гј Г®ГўДєД‘Г«ДєГ© - Г§Е•Д™Д‘Г®Г©Е€Дє Д™Г®Г­Е„Г®Г«Гј.");
 
             while (true)
             {
